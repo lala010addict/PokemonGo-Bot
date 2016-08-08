@@ -4,6 +4,7 @@ import time
 from pokemongo_bot.human_behaviour import (normalized_reticle_size, sleep,
                                            spin_modifier)
 from pokemongo_bot.base_task import BaseTask
+from pokemongo_bot.cell_workers.collect_level_up_reward import CollectLevelUpReward
 
 class PokemonCatchWorker(BaseTask):
     BAG_FULL = 'bag_full'
@@ -24,6 +25,11 @@ class PokemonCatchWorker(BaseTask):
 
     def work(self, response_dict=None):
         encounter_id = self.pokemon['encounter_id']
+        # print dir(self.bot)
+        print self.bot._print_character_info()
+        # print dir(self.bot.metrics)
+        print 'Uniq Pokemons:', self.bot.metrics.unique_mons
+        print 'xp_per_hour:', self.bot.metrics.xp_per_hour()
 
         if not response_dict:
             response_dict = self.create_encounter_api_call()
